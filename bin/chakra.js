@@ -1,25 +1,25 @@
 #!/usr/bin/env node
 
-const program = require('commander');
-const consola = require('consola');
-const chalk = require('chalk');
-const clear = require('clear');
-const figlet = require('figlet');
-const minimist = require('minimist');
-const { upperFirst, lowerCase } = require('lodash');
+const program = require("commander");
+const consola = require("consola");
+const chalk = require("chalk");
+const clear = require("clear");
+const figlet = require("figlet");
+const minimist = require("minimist");
+const { upperFirst, lowerCase } = require("lodash");
 
-const { directoryExists, getCurrentDirectory } = require('../lib/utils/files');
-const { getProjectType, cleanArgs, suggestCommands } = require('../lib/utils');
-const cliPkg = require('../package.json');
+const { directoryExists, getCurrentDirectory } = require("../src/utils/files");
+const { getProjectType, cleanArgs, suggestCommands } = require("../src/utils");
+const cliPkg = require("../package.json");
 
 clear();
 
 console.log(
-  chalk.cyan(figlet.textSync('Chakra UI', { horizontalLayout: 'full' }))
+  chalk.cyan(figlet.textSync("Chakra UI", { horizontalLayout: "full" }))
 );
 
-if (!directoryExists('package.json')) {
-  consola.error(chalk.red('Package.json not found!'));
+if (!directoryExists("package.json")) {
+  consola.error(chalk.red("Package.json not found!"));
   process.exit();
 }
 
@@ -46,17 +46,17 @@ try {
 
 program
   .version(`${cliPkg.name} ${cliPkg.version}`)
-  .usage('<command> [options]');
+  .usage("<command> [options]");
 
 program
-  .command('init')
-  .description('Set up Chakra UI')
+  .command("init")
+  .description("Set up Chakra UI")
   .option(
-    '-t, --theme',
+    "-t, --theme",
     "Clone the chakra default theme into the user's project under `chakra` directory."
   )
-  .option('-d, --dir <dir>', 'specify the directory to put Chakra UI')
-  .option('-ts, --typescript', 'Setup the typescript version of the command')
+  .option("-d, --dir <dir>", "specify the directory to put Chakra UI")
+  .option("-ts, --typescript", "Setup the typescript version of the command")
   .action((cmd) => {
     const options = cleanArgs(cmd);
 
@@ -67,13 +67,13 @@ program
         )
       );
     }
-    require('../lib/init')(projectType, options);
+    require("../src/init")(projectType, options);
   });
 
 // Help
 
 // output help information on unknown commands
-program.arguments('<command>').action((cmd) => {
+program.arguments("<command>").action((cmd) => {
   program.outputHelp();
   consola.info(`  ` + chalk.red(`Unknown command ${chalk.yellow(cmd)}.`));
   consola.info();
@@ -81,7 +81,7 @@ program.arguments('<command>').action((cmd) => {
 });
 
 // add some useful info on help
-program.on('--help', () => {
+program.on("--help", () => {
   consola.info(
     `Run ${chalk.blueBright(
       `chakra <command> --help`
@@ -89,7 +89,7 @@ program.on('--help', () => {
   );
 });
 
-program.commands.forEach((c) => c.on('--help', () => consola.info()));
+program.commands.forEach((c) => c.on("--help", () => consola.info()));
 
 program.parse(process.argv);
 
