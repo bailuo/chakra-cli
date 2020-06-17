@@ -1,31 +1,33 @@
 import { Command, flags } from '@oclif/command';
+import { getRepoContent, fetchRepo, getFiles } from '../helpers/github';
 
 export default class Init extends Command {
-  static description = 'describe the command here';
+  static description = 'Initialize a Chakra UI package or theme';
 
   static examples = [
-    `$ chakra hello
-hello world from ./src/init.ts!
-`,
+    `$ chakra init
+    `,
   ];
 
   static flags = {
+    theme: flags.boolean({
+      char: 't',
+      description: 'Clone the chakra starter theme',
+    }),
+    out: flags.string({
+      char: 'o',
+      description: 'The directory to output the theme to',
+      required: false,
+    }),
     help: flags.help({ char: 'h' }),
-    // flag with a value (-n, --name=VALUE)
-    name: flags.string({ char: 'n', description: 'name to print' }),
-    // flag with no value (-f, --force)
-    force: flags.boolean({ char: 'f' }),
+    ts: flags.boolean(),
   };
 
-  static args = [{ name: 'file' }];
-
   async run() {
-    const { args, flags } = this.parse(Init);
-
-    const name = flags.name ?? 'world';
-    this.log(`hello ${name} from ./src/commands/init.ts`);
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`);
-    }
+    const { flags } = this.parse(Init);
+    // getRepoContent();
+    // await fetchRepo();
+    getFiles(['packages/theme/src']);
+    this.log(JSON.stringify(flags));
   }
 }

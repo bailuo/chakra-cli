@@ -2,6 +2,12 @@
   "extends": ["oclif", "oclif-typescript"],
   "rules": {
     "object-curly-spacing": "off",
-    "semi": "off"
+    "semi": "off",
+    "node/no-extraneous-require": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "no-console": "off",
+    "indent": "off",
+    "handle-callback-err": "off",
+    "valid-jsdoc": "off"
   }
 }
