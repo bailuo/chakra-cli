@@ -1,5 +1,5 @@
-const GithubContent = require('github-content');
-const tree = require('github-trees');
+import * as tree from 'github-trees';
+const repo = require('github-download-parts');
 
 /**
  * General github options
@@ -9,22 +9,8 @@ const options = {
   repo: 'chakra-ui',
   branch: 'master',
   path: 'packages/theme/src',
+  outDir: 'chakra',
 };
-
-/**
- * Initialze the client that gets blob content
- * based on path
- */
-const client = new GithubContent(options);
-
-/**
- * Check if the the node is the `theme` folder
- */
-export function getFiles(files) {
-  client.files(files, (err, output) => {
-    console.log(output);
-  });
-}
 
 /**
  * Check if the a github node is the `theme` folder
@@ -39,19 +25,30 @@ function isThemeDirectory(node) {
 export async function getFilePaths() {
   const data = await tree(options.owner, options.repo, {
     recursive: true,
+    sha: 'c0f9c28',
+    username: process.env.GITHUB_USERNAME,
+    password: process.env.GITHUB_PASSWORD,
   });
-  const paths = data.tree.filter(isThemeDirectory).map(node => node.path);
-  return paths;
+
+  if (!data.tree) {
+    console.log('Error retrieving file tree');
+    return;
+  }
+
+  return data.tree.filter(isThemeDirectory).map(node => node.path);
 }
 
-async function download() {
-  const files = await getFilePaths();
-  await Promise.all(files.map(writeFile));
-}
-
-function writeFile(path) {
-  const file = new File([blob], 'uploaded_file.jpg', {
-    type: 'image/jpeg',
-    lastModified: Date.now(),
-  });
+export async function download() {
+  const paths = await getFilePaths();
+  if (!paths) {
+    console.log('Error retrieving file paths');
+    return;
+  }
+  await Promise.all(
+    paths.map(path => {
+      const p1 = path.split('packages/theme/src')[1];
+      const p2 = 'chakra/' + p1;
+      return repo('chakra-ui/chakra-ui', p2, path);
+    })
+  );
 }

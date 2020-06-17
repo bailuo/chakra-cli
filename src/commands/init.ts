@@ -1,5 +1,5 @@
 import { Command, flags } from '@oclif/command';
-import { getRepoContent, fetchRepo, getFiles } from '../helpers/github';
+import { download } from '../helpers/github';
 
 export default class Init extends Command {
   static description = 'Initialize a Chakra UI package or theme';
@@ -24,10 +24,8 @@ export default class Init extends Command {
   };
 
   async run() {
-    const { flags } = this.parse(Init);
-    // getRepoContent();
-    // await fetchRepo();
-    getFiles(['packages/theme/src']);
-    this.log(JSON.stringify(flags));
+    // const { flags } = this.parse(Init);
+    await download();
+    // this.log(JSON.stringify(flags));
   }
 }

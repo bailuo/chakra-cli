@@ -8,6 +8,7 @@
     "no-console": "off",
     "indent": "off",
     "handle-callback-err": "off",
-    "valid-jsdoc": "off"
+    "valid-jsdoc": "off",
+    "unicorn/prefer-add-event-listener": "off"
   }
 }
