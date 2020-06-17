@@ -1,26 +1,16 @@
 {
   "name": "chakra-cli",
-  "version": "1.0.0",
   "description": "Command line interface for rapid Chakra UI integration for React, Vue and Next",
-  "bin": {
-    "chakra": "bin/chakra.js"
-  },
-  "directories": {
-    "lib": "lib"
-  },
-  "keywords": [
-    "chakra",
-    "chakra-ui",
-    "cli"
-  ],
+  "version": "1.0.0",
   "author": "Kelvin Omereshone <kelvinomereshone@gmail.com> (https://twitter.com/dominus_kelvin)",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
+  "bin": {
+    "chakra": "./bin/run"
   },
+  "bugs": "https://github.com/chakra-ui/chakra-cli/issues",
   "dependencies": {
-    "oclif": "1.16.1",
-    "shelljs": "0.8.4",
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^3",
     "chalk": "^4.0.0",
     "clear": "^0.1.0",
     "commander": "^5.1.0",
@@ -33,7 +23,59 @@
     "lodash": "^4.17.15",
     "minimist": "^1.2.5",
     "mkdirp": "^1.0.4",
+    "oclif": "1.16.1",
+    "shelljs": "0.8.4",
     "slash": "^3.0.0",
-    "touch": "^3.1.0"
-  }
+    "touch": "^3.1.0",
+    "tslib": "^1"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1",
+    "@types/node": "^10",
+    "eslint": "^5.13",
+    "eslint-config-oclif": "^3.1",
+    "eslint-config-oclif-typescript": "^0.1",
+    "globby": "^10",
+    "ts-node": "^8",
+    "typescript": "^3.3"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/chakra-ui/chakra-cli",
+  "keywords": [
+    "chakra",
+    "chakra-ui",
+    "cli"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "chakra",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "chakra-ui/chakra-cli",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "eslint . --ext .ts --config .eslintrc",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "types": "lib/index.d.ts"
 }
