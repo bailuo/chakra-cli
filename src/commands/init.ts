@@ -26,6 +26,5 @@ export default class Init extends Command {
   async run() {
     // const { flags } = this.parse(Init);
     await download();
-    // this.log(JSON.stringify(flags));
   }
 }

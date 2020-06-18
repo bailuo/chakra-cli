@@ -1,8 +1,7 @@
-import * as tree from 'github-trees';
 import { promises as fs } from 'fs';
 import * as fsExtra from 'fs-extra';
 import { Octokit } from '@octokit/rest';
-import * as babel from '@babel/core';
+import ts from 'typescript';
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
@@ -28,9 +27,11 @@ function isThemeDirectory(node) {
  * Get the file paths for all theme related files
  */
 export async function getFilePaths() {
-  const data = await tree(options.owner, options.repo, {
-    recursive: true,
-    sha: 'c0f9c28',
+  const { data } = await octokit.git.getTree({
+    owner: options.owner,
+    repo: options.repo,
+    tree_sha: 'c0f9c28',
+    recursive: 'true',
   });
 
   if (!data.tree) {
@@ -48,7 +49,6 @@ export async function download() {
     return;
   }
 
-  console.log('paths', paths);
   try {
     await Promise.all(
       paths.map(async path => {
@@ -67,8 +67,10 @@ export async function download() {
         const buffer = Buffer.from(data.content, 'base64');
         const text = buffer.toString('ascii');
 
-        const { code: jsCode } = babel.transformSync(text, {
-          presets: ['@babel/preset-typescript'],
+        const { outputText: jsCode } = await ts.transpileModule(text, {
+          compilerOptions: {
+            module: 99, // => 'ESNEXT'
+          },
         });
 
         await fs.writeFile(destination, jsCode, 'utf-8');

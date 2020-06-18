@@ -7,3 +7,4 @@
 /tmp
 chakra/
 node_modules
+.env
