@@ -2,6 +2,7 @@ import * as tree from 'github-trees';
 import { promises as fs } from 'fs';
 import * as fsExtra from 'fs-extra';
 import { Octokit } from '@octokit/rest';
+import * as babel from '@babel/core';
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
@@ -52,10 +53,10 @@ export async function download() {
   try {
     await Promise.all(
       paths.map(async path => {
-        const p1 = path.split('packages/theme/src')[1];
-        const p2 = 'chakra' + p1;
+        const filePath = path.split('packages/theme/src')[1];
+        const destination = 'chakra' + filePath;
 
-        fsExtra.ensureFileSync(p2);
+        fsExtra.ensureFileSync(destination);
 
         const { data } = await octokit.repos.getContent({
           owner: 'chakra-ui',
@@ -67,7 +68,9 @@ export async function download() {
         const buffer = Buffer.from(data.content, 'base64');
         const text = buffer.toString('ascii');
 
-        await fs.writeFile(p2, text, 'utf-8');
+        const { code: jsCode } = babel.transformSync(text);
+
+        await fs.writeFile(destination, jsCode, 'utf-8');
       })
     );
   } catch (error) {
