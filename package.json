@@ -9,6 +9,7 @@
   "bugs": "https://github.com/chakra-ui/chakra-cli/issues",
   "dependencies": {
     "@babel/core": "^7.10.2",
+    "@babel/preset-typescript": "^7.10.1",
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",

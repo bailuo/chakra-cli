@@ -31,7 +31,6 @@ export async function getFilePaths() {
   const data = await tree(options.owner, options.repo, {
     recursive: true,
     sha: 'c0f9c28',
-    token: '7bb7ea2a97882bf30b0f425ec2074bfb1b5380f1',
   });
 
   if (!data.tree) {
@@ -68,7 +67,9 @@ export async function download() {
         const buffer = Buffer.from(data.content, 'base64');
         const text = buffer.toString('ascii');
 
-        const { code: jsCode } = babel.transformSync(text);
+        const { code: jsCode } = babel.transformSync(text, {
+          presets: ['@babel/preset-typescript'],
+        });
 
         await fs.writeFile(destination, jsCode, 'utf-8');
       })
