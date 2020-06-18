@@ -1,4 +1,5 @@
 import * as tree from 'github-trees';
+import * as fs from 'fs-extra';
 const repo = require('github-download-parts');
 
 /**
@@ -48,6 +49,7 @@ export async function download() {
     paths.map(path => {
       const p1 = path.split('packages/theme/src')[1];
       const p2 = 'chakra/' + p1;
+      fs.ensureFileSync(p2);
       return repo('chakra-ui/chakra-ui', p2, path);
     })
   );
