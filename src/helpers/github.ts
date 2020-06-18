@@ -1,6 +1,9 @@
 import * as tree from 'github-trees';
-import * as fs from 'fs-extra';
-const repo = require('github-download-parts');
+import { promises as fs } from 'fs';
+import * as fsExtra from 'fs-extra';
+import { Octokit } from '@octokit/rest';
+
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
 /**
  * General github options
@@ -27,8 +30,7 @@ export async function getFilePaths() {
   const data = await tree(options.owner, options.repo, {
     recursive: true,
     sha: 'c0f9c28',
-    username: process.env.GITHUB_USERNAME,
-    password: process.env.GITHUB_PASSWORD,
+    token: '7bb7ea2a97882bf30b0f425ec2074bfb1b5380f1',
   });
 
   if (!data.tree) {
@@ -45,12 +47,30 @@ export async function download() {
     console.log('Error retrieving file paths');
     return;
   }
-  await Promise.all(
-    paths.map(path => {
-      const p1 = path.split('packages/theme/src')[1];
-      const p2 = 'chakra/' + p1;
-      fs.ensureFileSync(p2);
-      return repo('chakra-ui/chakra-ui', p2, path);
-    })
-  );
+
+  console.log('paths', paths);
+  try {
+    await Promise.all(
+      paths.map(async path => {
+        const p1 = path.split('packages/theme/src')[1];
+        const p2 = 'chakra' + p1;
+
+        fsExtra.ensureFileSync(p2);
+
+        const { data } = await octokit.repos.getContent({
+          owner: 'chakra-ui',
+          repo: 'chakra-ui',
+          ref: 'c0f9c28',
+          path,
+        });
+
+        const buffer = Buffer.from(data.content, 'base64');
+        const text = buffer.toString('ascii');
+
+        await fs.writeFile(p2, text, 'utf-8');
+      })
+    );
+  } catch (error) {
+    console.error(error);
+  }
 }

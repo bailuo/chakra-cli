@@ -8,19 +8,18 @@
   },
   "bugs": "https://github.com/chakra-ui/chakra-cli/issues",
   "dependencies": {
-    "get-file":"2.0.0",
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",
+    "@octokit/rest": "^18.0.0",
     "chalk": "^4.0.0",
     "clear": "^0.1.0",
     "commander": "^5.1.0",
     "consola": "^2.12.1",
-    "github-download-parts": "2.1.0",
-    "yarn-deduplicate": "2.0.0",
     "figlet": "^1.4.0",
     "fs-extra": "9.0.1",
     "fs-mkdirp-stream": "^1.0.0",
+    "get-file": "2.0.0",
     "github-content": "^1.0.1",
     "github-trees": "^0.2.0",
     "leven": "^3.1.0",
@@ -31,7 +30,8 @@
     "shelljs": "0.8.4",
     "slash": "^3.0.0",
     "touch": "^3.1.0",
-    "tslib": "^1"
+    "tslib": "^1",
+    "yarn-deduplicate": "2.0.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",
@@ -48,7 +48,7 @@
     "lib": "lib"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.1.0"
   },
   "files": [
     "/bin",
