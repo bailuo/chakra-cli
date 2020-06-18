@@ -69,7 +69,7 @@ export async function download() {
 
         const { outputText: jsCode } = await ts.transpileModule(text, {
           compilerOptions: {
-            module: 99, // => 'ESNEXT'
+            module: 6, // => 'es2020'
           },
         });
 
