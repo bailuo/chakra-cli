@@ -1,5 +1,10 @@
 import { Command, flags } from '@oclif/command';
 import { download } from '../helpers/github';
+import shell from 'shelljs';
+
+function installThemeTools() {
+  shell.exec('yarn add @chakra-ui/theme-tools');
+}
 
 export default class Init extends Command {
   static description = 'Initialize a Chakra UI package or theme';
@@ -24,7 +29,9 @@ export default class Init extends Command {
   };
 
   async run() {
-    // const { flags } = this.parse(Init);
+    const { flags } = this.parse(Init);
+    installThemeTools();
+    console.log(JSON.stringify(flags));
     await download();
   }
 }
