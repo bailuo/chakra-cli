@@ -11,6 +11,36 @@
   "commitConvention": "angular",
   "contributors": [
     {
+      "login": "segunadebayo",
+      "name": "Segun Adebayo",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/6916170?v=4",
+      "profile": "https://github.com/segunadebayo",
+      "contributions": [
+        "code",
+        "doc",
+        "infra"
+      ]
+    },
+    {
+      "login": "with-heart",
+      "name": "Mark Chandler",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1954752?v=4",
+      "profile": "http://chanchan.io/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "DominusKelvin",
+      "name": "Omereshone Kelvin Oghenerhoro",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/24433274?v=4",
+      "profile": "https://twitter.com/dominus_kelvin",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
       "login": "ugbechike",
       "name": "Ugbechike",
       "avatar_url": "https://avatars1.githubusercontent.com/u/29172958?v=4",
