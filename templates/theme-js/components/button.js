@@ -12,6 +12,7 @@ const grayGhostStyle = props => ({
 
 function getGhostStyle(props) {
   const {colorScheme: c, theme: t} = props;
+
   if (c === 'gray')
 
     return grayGhostStyle(props);
@@ -53,6 +54,7 @@ const graySolidStyle = props => ({
 
 function getSolidStyle(props) {
   const {colorScheme: c} = props;
+
   if (c === 'gray')
 
     return graySolidStyle(props);

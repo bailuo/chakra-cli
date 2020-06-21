@@ -7,7 +7,8 @@
       "MethodDefinition": ">=2",
       "ClassDeclaration": ">=2",
       "VariableDeclaration": ">=2",
-      "ReturnStatement": ">=2"
+      "ReturnStatement": ">=2",
+      "IfStatement": ">=2"
     },
     "after": {
       "FunctionDeclaration": ">=2",
