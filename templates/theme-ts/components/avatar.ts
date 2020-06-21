@@ -14,11 +14,11 @@ function getSize(size: string) {
   const styles: SystemProps = {
     width: size,
     height: size,
-    fontSize: `calc(${themeSize ?? size} / 2.5)`,
+    fontSize: `calc(${themeSize || size} / 2.5)`,
   }
 
   if (size !== "100%") {
-    styles.lineHeight = themeSize ?? size
+    styles.lineHeight = themeSize || size
   }
 
   return {
