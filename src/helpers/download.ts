@@ -1,7 +1,6 @@
 import { promises as fs } from 'fs';
 import * as fsExtra from 'fs-extra';
 import { Octokit } from '@octokit/rest';
-import ts from 'typescript';
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
@@ -13,7 +12,7 @@ const options = {
   repo: 'chakra-ui',
   branch: 'master',
   path: 'packages/theme/src',
-  outDir: 'chakra',
+  outDir: 'theme-ts',
 };
 
 /**
@@ -53,7 +52,7 @@ export async function download() {
     await Promise.all(
       paths.map(async path => {
         const filePath = path.split('packages/theme/src')[1];
-        const destination = 'chakra' + filePath;
+        const destination = options.outDir + filePath;
 
         fsExtra.ensureFileSync(destination);
 
@@ -67,14 +66,7 @@ export async function download() {
         const buffer = Buffer.from(data.content, 'base64');
         const text = buffer.toString('ascii');
 
-        const { outputText: jsCode } = await ts.transpileModule(text, {
-          compilerOptions: {
-            target: 7, // => 'es2018'
-            module: 6, // => 'es2020'
-          },
-        });
-
-        await fs.writeFile(destination, jsCode, 'utf-8');
+        await fs.writeFile(destination, text, 'utf-8');
       })
     );
   } catch (error) {
