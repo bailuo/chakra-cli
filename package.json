@@ -1,6 +1,6 @@
 {
   "name": "chakra-cli",
-  "description": "Command line interface for rapid Chakra UI integration for React, Vue and Next",
+  "description": "Command line interface for Chakra UI",
   "version": "1.0.0",
   "author": "Kelvin Omereshone <kelvinomereshone@gmail.com> (https://twitter.com/dominus_kelvin)",
   "bin": {
@@ -69,7 +69,6 @@
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "test": "echo NO TESTS",
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts"
