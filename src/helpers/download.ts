@@ -12,7 +12,8 @@ const options = {
   repo: 'chakra-ui',
   branch: 'master',
   path: 'packages/theme/src',
-  outDir: 'theme-ts',
+  outDir: 'templates/theme-ts',
+  sha: 'c0f9c28',
 };
 
 /**
@@ -29,7 +30,7 @@ export async function getFilePaths() {
   const { data } = await octokit.git.getTree({
     owner: options.owner,
     repo: options.repo,
-    tree_sha: 'c0f9c28',
+    tree_sha: options.sha,
     recursive: 'true',
   });
 
@@ -57,9 +58,9 @@ export async function download() {
         fsExtra.ensureFileSync(destination);
 
         const { data } = await octokit.repos.getContent({
-          owner: 'chakra-ui',
-          repo: 'chakra-ui',
-          ref: 'c0f9c28',
+          owner: options.owner,
+          repo: options.repo,
+          ref: options.sha,
           path,
         });
 
