@@ -69,8 +69,9 @@
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "version": "oclif-dev readme && git add README.md"
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && yarn readme",
+    "version": "yarn readme && git add README.md",
+    "readme": "oclif-dev readme"
   },
   "types": "lib/index.d.ts"
 }

@@ -1,66 +1,41 @@
-# Chakra CLI
+# chakra-cli
+
+Command line interface for rapid Chakra UI integration for React, Vue and Next
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/chakra-cli.svg)](https://npmjs.org/package/chakra-cli)
 [![Downloads/week](https://img.shields.io/npm/dw/chakra-cli.svg)](https://npmjs.org/package/chakra-cli)
 [![License](https://img.shields.io/npm/l/chakra-cli.svg)](https://github.com/chakra-ui/chakra-cli/blob/master/package.json)
 
-Chakra CLI provides a set of commands to enhance your design system when usinghakra UI React or Vue.
+<!-- toc -->
+* [chakra-cli](#chakra-cli)
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
 
-This page contains a complete list of all CLI commands available, alongside their optional parameters for additional behavior.
+# Usage
 
-All commands and options are listed in the following categories:
-
-| Category              | Description                                 |
-| --------------------- | ------------------------------------------- |
-| [Commands](#commands) | A list of commands from Chakra CLI.         |
-| [Options](#options)   | Additional options for Chakra CLI commands. |
-
-# Install
-
-```sh
-npm install -g chakra-cli
-
-# or
-
-yarn global add chakra-cli
+<!-- usage -->
+```sh-session
+$ npm install -g chakra-cli
+$ chakra COMMAND
+running command...
+$ chakra (-v|--version|version)
+chakra-cli/1.0.0 darwin-x64 node-v12.7.0
+$ chakra --help [COMMAND]
+USAGE
+  $ chakra COMMAND
+...
 ```
+<!-- usagestop -->
 
 # Commands
 
-## Init
+<!-- commands -->
+* [`chakra help [COMMAND]`](#chakra-help-command)
+* [`chakra init`](#chakra-init)
 
-The `init` command is used to initialize Chakra UI locally and clone the default chakra theme to your project.
-
-### Basic Usage
-
-```sh
-chakra init [options]
-```
-
-### Options
-
-| Option            | Description                 |
-| ----------------- | --------------------------- |
-| --theme           | clone the default theme     |
-| -ts, --typescript | setup command in typescript |
-| -h, --help        | show CLI help               |
-| -o, --out         | the output directory        |
-
-### Examples
-
-```sh
-# clone theme (in javascript)
-chakra init --theme
-
-# clone theme (in typescript)
-chakra init --theme -ts
-
-# clone theme to specific directory
-chakra init --theme -o src
-```
-
-## Help
+## `chakra help [COMMAND]`
 
 display help for chakra
 
@@ -74,6 +49,33 @@ ARGUMENTS
 OPTIONS
   --all  see all commands in CLI
 ```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
+
+## `chakra init`
+
+Initialize a Chakra UI package or theme
+
+```
+USAGE
+  $ chakra init
+
+OPTIONS
+  -h, --help     show CLI help
+  -o, --out=out  [default: chakra] The directory to output the theme to
+  --theme        Clone the chakra starter theme
+  --ts           Use the TypeScript version
+
+EXAMPLES
+  $ chakra init --theme --ts
+       This will copy the theme to your project in typescript
+    
+  $ chakra init --theme
+       This will copy the theme to your project in javascript
+```
+
+_See code: [src/commands/init.ts](https://github.com/chakra-ui/chakra-cli/blob/v1.0.0/src/commands/init.ts)_
+<!-- commandsstop -->
 
 ## Contributors ✨
 
